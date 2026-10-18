@@ -2,9 +2,13 @@
 
 ## S3
 
-Frontend bucket:
+Create the frontend bucket.
 
-`secure-network-origin-123`
+Example:
+
+```text
+secure-network-origin-123
+```
 
 Upload:
 
@@ -14,26 +18,53 @@ style.css
 script.js
 ```
 
-S3 is used as the frontend origin.
+The S3 bucket should not be treated as the public entry point.
 
 ## CloudFront
 
-Distribution ID:
+Create a CloudFront distribution using the S3 bucket as the origin.
 
-`E1YUP14VLB6ENI`
+CloudFront provides:
 
-CloudFront provides HTTPS, CDN delivery, caching and WAF integration.
+- HTTPS
+- CDN
+- Caching
+- Global edge delivery
+- WAF integration
+
+Distribution:
+
+```text
+E1YUP14VLB6ENI
+```
+
+## Frontend API
+
+The frontend sends requests to:
+
+```javascript
+fetch("/api/contact")
+```
+
+The API behavior is routed through the configured application origin.
 
 ## WAF
 
-Associate AWS WAF with CloudFront.
+Attach AWS WAF to CloudFront.
 
-Use appropriate managed protections such as common web attack rules and rate-based protection.
+Recommended protections:
 
-WAF helps protect against common malicious web requests.
+```text
+AWS Managed Rules
+Common Rule Set
+Known Bad Inputs
+SQL Injection protection
+```
 
-## Shield
+Rate-based protection can also be used to reduce abusive request rates.
 
-AWS Shield provides DDoS protection.
+## Why WAF?
 
-CloudFront and AWS infrastructure provide baseline protection, while Shield Advanced can add additional capabilities when required.
+CloudFront protects delivery and WAF inspects HTTP requests for malicious patterns.
+
+This provides an additional security layer before requests reach the application.

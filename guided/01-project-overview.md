@@ -2,45 +2,77 @@
 
 ## Objective
 
-Build a secure AWS contact form using a multi-tier architecture.
+Build a secure AWS contact form application using a multi-tier architecture.
 
-The application is divided into:
+The application separates:
 
 1. Frontend
 2. Application layer
 3. Database layer
 
-## Request Flow
+## Architecture
 
 ```text
-User
- |
- v
+Internet
+   |
 CloudFront
- |
- v
-Frontend
- |
- v
+   |
+S3 Frontend
+   |
 ALB
- |
- v
+   |
 EC2 Flask Backend
- |
- +----> RDS MySQL
- |
- +----> SNS
-          |
-          v
-       Administrator
+   |
+RDS MySQL
+   |
+SNS Notification
 ```
 
-## Why this design?
+## Why this architecture?
 
-The frontend, application and database are separated.
+The frontend is separated from the backend.
 
-The backend is private and receives traffic through the ALB.
+The backend is located inside private application subnets.
 
-The database is private and accepts connections only from the application layer.
+The database is located inside private database subnets.
 
-Two Availability Zones are used for the application tier.
+The ALB is responsible for receiving application traffic and distributing it across the EC2 instances.
+
+This improves availability and provides a clear security boundary between the different layers.
+
+## Availability
+
+Two Availability Zones are used.
+
+Application EC2 instances are distributed across:
+
+```text
+us-east-1a
+us-east-1b
+```
+
+This reduces dependency on a single Availability Zone.
+
+## Security
+
+The architecture follows defense-in-depth:
+
+```text
+CloudFront
++
+WAF
++
+Security Groups
++
+Private Subnets
++
+Systems Manager
++
+VPC Endpoints
++
+RDS Isolation
++
+Flow Logs
++
+CloudWatch
+```

@@ -2,54 +2,87 @@
 
 ## Create VPC
 
-AWS Console:
-VPC → Your VPCs → Create VPC
-
-Use:
+Open:
 
 ```text
-Name: Secure-Network-VPC
-IPv4 CIDR: 10.0.0.0/16
+AWS Console
+→ VPC
+→ Your VPCs
+→ Create VPC
 ```
 
-## Public Subnets
+Configuration:
 
 ```text
-Public-Subnet-1
+Name:
+Secure-Network-VPC
+
+IPv4 CIDR:
+10.0.0.0/16
+```
+
+## Create Public Subnets
+
+Create two subnets.
+
+### Subnet 1
+
+```text
+Name: Public-Subnet-1
 AZ: us-east-1a
 CIDR: 10.0.1.0/24
+```
 
-Public-Subnet-2
+### Subnet 2
+
+```text
+Name: Public-Subnet-2
 AZ: us-east-1b
 CIDR: 10.0.2.0/24
 ```
 
-## Private Application Subnets
+## Create Private Application Subnets
+
+### Subnet 1
 
 ```text
-Private-App-Subnet-1
+Name: Private-App-Subnet-1
 AZ: us-east-1a
 CIDR: 10.0.11.0/24
+```
 
-Private-App-Subnet-2
+### Subnet 2
+
+```text
+Name: Private-App-Subnet-2
 AZ: us-east-1b
 CIDR: 10.0.12.0/24
 ```
 
-## Private Database Subnets
+## Create Private Database Subnets
+
+### Subnet 1
 
 ```text
-Private-DB-Subnet-1
+Name: Private-DB-Subnet-1
 AZ: us-east-1a
 CIDR: 10.0.21.0/24
+```
 
-Private-DB-Subnet-2
+### Subnet 2
+
+```text
+Name: Private-DB-Subnet-2
 AZ: us-east-1b
 CIDR: 10.0.22.0/24
 ```
 
-Public subnets are for internet-facing infrastructure.
+## Why multiple subnet types?
 
-Private application subnets protect the backend.
+Public subnets are used for internet-facing infrastructure.
 
-Private database subnets protect RDS.
+Private application subnets protect backend servers from direct Internet access.
+
+Private database subnets protect the database from direct access.
+
+This creates a layered architecture.

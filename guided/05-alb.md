@@ -1,18 +1,39 @@
 # 05 — Application Load Balancer
 
-## Target Group
+## Create Target Group
 
-Create an Instance target group.
+Navigate to:
+
+```text
+EC2
+→ Target Groups
+→ Create target group
+```
+
+Configuration:
+
+```text
+Target type:
+Instances
+
+Protocol:
+HTTP
+
+Port:
+5000
+```
+
+Health check:
 
 ```text
 Protocol: HTTP
-Port: 5000
-Health Check Path: /health
+Path: /health
+Port: traffic port
 ```
 
 Register both EC2 instances.
 
-## ALB
+## Create ALB
 
 Create an Internet-facing Application Load Balancer.
 
@@ -27,9 +48,9 @@ Attach the ALB security group.
 
 Forward traffic to the target group.
 
-## Verify
+## Verify Health
 
-Both targets should be:
+Both EC2 targets should become:
 
 ```text
 Healthy
@@ -41,4 +62,20 @@ Test:
 curl http://<ALB-DNS>/health
 ```
 
-ALB provides load balancing, health checks and higher availability.
+Expected:
+
+```json
+{
+  "status": "healthy"
+}
+```
+
+## Why ALB?
+
+ALB provides:
+
+- Load balancing
+- Health checks
+- High availability
+- Automatic traffic distribution
+- Integration with AWS security services

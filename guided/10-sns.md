@@ -1,36 +1,55 @@
 # 10 — SNS Notification
 
-## Topic
+## SNS Topic
 
-`SecureNet-Admin-Notifications`
+Topic:
 
-SNS sends an administrator notification after a successful contact form submission.
+```text
+SecureNet-Admin-Notifications
+```
+
+The topic is used for administrator notifications.
 
 ## Application Flow
+
+When a user submits the contact form:
 
 ```text
 POST /api/contact
         |
+        v
 Input validation
         |
+        v
 Insert into RDS
         |
+        v
 Commit transaction
         |
-Publish SNS
-        |
-Administrator notification
+        v
+Publish SNS message
 ```
 
-The database transaction is committed before publishing SNS.
+## Important Design Decision
 
-Therefore, a temporary SNS failure does not remove a successfully stored contact message.
+The database transaction is committed before publishing the SNS notification.
+
+This means the contact message remains stored even if SNS temporarily fails.
+
+The notification system should not cause a successful database submission to be lost.
 
 ## Test
 
-1. Submit the form.
-2. Verify the API returns success.
-3. Verify the message exists in RDS.
-4. Verify the SNS notification.
+Submit the contact form and verify:
 
-SNS is different from SES. SNS is used here for publish/subscribe notifications, while SES is primarily an email sending service.
+1. The API returns success.
+2. The message exists in RDS.
+3. The SNS notification is received.
+
+## SES vs SNS
+
+SNS is being used for administrator notifications.
+
+It is different from SES.
+
+SNS is a publish/subscribe notification service, while SES is designed primarily for sending email.

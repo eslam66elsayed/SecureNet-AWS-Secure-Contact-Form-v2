@@ -1,6 +1,6 @@
 # 06 — RDS MySQL Configuration
 
-## DB Subnet Group
+## Create DB Subnet Group
 
 Use:
 
@@ -9,15 +9,29 @@ Use:
 10.0.22.0/24
 ```
 
-## Database
+These are the private database subnets.
+
+## Create RDS
+
+Engine:
 
 ```text
-Engine: MySQL
-Database: securenet
-Port: 3306
+MySQL
 ```
 
-The database must not be publicly accessible.
+Database:
+
+```text
+securenet
+```
+
+Port:
+
+```text
+3306
+```
+
+The database should not be publicly accessible.
 
 ## Security Group
 
@@ -28,13 +42,21 @@ TCP 3306
 Source: EC2 Security Group
 ```
 
-The main table is:
+Do not allow:
+
+```text
+0.0.0.0/0
+```
+
+## Database Table
+
+The application stores contact messages in:
 
 ```text
 contact_messages
 ```
 
-Typical fields:
+Typical fields include:
 
 ```text
 id
@@ -44,10 +66,18 @@ message
 created_at
 ```
 
-The user never connects directly to RDS.
-
-Request flow:
+## Connection Flow
 
 ```text
-CloudFront → ALB → EC2 → RDS
+User
+ ↓
+CloudFront
+ ↓
+ALB
+ ↓
+EC2
+ ↓
+RDS
 ```
+
+The user never connects directly to RDS.

@@ -2,39 +2,68 @@
 
 ## ALB Security Group
 
-Allow the required HTTP/HTTPS traffic from users.
+The ALB receives web traffic from users.
 
-The ALB forwards application traffic to EC2 on TCP `5000`.
+Required ports:
+
+```text
+HTTP 80
+HTTPS 443
+```
+
+The ALB forwards application traffic to EC2 on:
+
+```text
+TCP 5000
+```
 
 ## EC2 Security Group
 
-Allow:
+EC2 should allow:
 
 ```text
 TCP 5000
 Source: ALB Security Group
 ```
 
-Do not expose the application directly to the Internet.
+The backend should not be directly accessible from the Internet.
 
 ## RDS Security Group
 
-Allow:
+RDS MySQL uses:
 
 ```text
 TCP 3306
-Source: EC2 Security Group
 ```
 
-Do not allow `0.0.0.0/0` to MySQL.
-
-## Public Route Table
+Source:
 
 ```text
-10.0.0.0/16 -> local
-0.0.0.0/0   -> Internet Gateway
+EC2 Security Group
 ```
 
-Private application and database resources are not directly exposed through an Internet Gateway.
+This means only the application servers can connect to the database.
 
-Security Group references are preferred over broad CIDR rules where possible.
+## Why use Security Group references?
+
+Instead of allowing an IP range such as:
+
+```text
+0.0.0.0/0
+```
+
+the database trusts the application security group.
+
+This is more secure and follows least privilege.
+
+## Routing
+
+Public subnets:
+
+```text
+0.0.0.0/0 → Internet Gateway
+```
+
+Private application and database resources do not receive direct Internet access through an Internet Gateway route.
+
+AWS service access is provided through VPC endpoints where configured.

@@ -1,28 +1,44 @@
 # 11 — Transit Gateway
 
+## Objective
+
+Transit Gateway is used to demonstrate centralized connectivity between multiple VPCs.
+
 ## Networks
 
 Main VPC:
 
-`10.0.0.0/16`
+```text
+10.0.0.0/16
+```
 
-Connected VPC:
+Second VPC:
 
-`10.1.0.0/16`
+```text
+10.1.0.0/16
+```
 
 ## Architecture
 
 ```text
 VPC 10.0.0.0/16
         |
+        |
 Transit Gateway
+        |
         |
 VPC 10.1.0.0/16
 ```
 
-Transit Gateway provides centralized connectivity between VPCs.
+## Why Transit Gateway?
 
-Required routes must point the opposite VPC CIDR toward the Transit Gateway.
+Without Transit Gateway, multiple VPCs can become difficult to manage because each VPC may require individual connections.
+
+Transit Gateway provides a centralized routing point.
+
+## Routing
+
+Both VPC route tables must contain the required routes toward the Transit Gateway.
 
 Example:
 
@@ -30,10 +46,14 @@ Example:
 10.1.0.0/16 → Transit Gateway
 ```
 
-and:
+and in the second VPC:
 
 ```text
 10.0.0.0/16 → Transit Gateway
 ```
 
-Transit Gateway does not bypass Security Groups or Network ACLs. Routing and security controls must both allow the traffic.
+## Important
+
+Transit Gateway does not automatically make resources reachable.
+
+Security Groups, Network ACLs, and route tables must still allow the traffic.

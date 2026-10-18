@@ -1,35 +1,66 @@
 # 08 — Systems Manager and VPC Endpoints
 
-## Systems Manager
+## Why Systems Manager?
 
-Use Session Manager to access private EC2 instances.
+The EC2 instances are private.
 
-This avoids exposing SSH to the Internet.
+Instead of opening SSH to the Internet, Systems Manager Session Manager is used.
 
-The EC2 instance requires an IAM role with the required Systems Manager permissions, commonly including:
+This avoids exposing port:
 
-`AmazonSSMManagedInstanceCore`
+```text
+22
+```
 
-## Interface Endpoints
+## Session Manager
 
-Configured:
+Navigate:
+
+```text
+AWS Systems Manager
+→ Session Manager
+→ Start session
+```
+
+Select the EC2 instance.
+
+## Required IAM Role
+
+The EC2 instance needs an IAM role allowing Systems Manager functionality.
+
+The managed policy commonly used is:
+
+```text
+AmazonSSMManagedInstanceCore
+```
+
+## VPC Endpoints
+
+Configured endpoints include:
 
 ```text
 com.amazonaws.us-east-1.ssm
 com.amazonaws.us-east-1.ssmmessages
 ```
 
-## S3 Gateway Endpoint
-
 An S3 Gateway Endpoint is also configured.
 
-VPC endpoints provide private access to supported AWS services.
+## Why VPC Endpoints?
+
+They allow private communication with supported AWS services without requiring Internet access.
+
+This is particularly useful for private EC2 instances.
 
 ## Test Session
 
-From Session Manager:
+After connecting through Session Manager:
 
 ```bash
 hostname
+```
+
+Then test:
+
+```bash
 sudo systemctl status contact-api --no-pager
 ```
