@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SecureNet | Contact</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <span class="badge">AWS SECURE CONTACT PLATFORM</span>
+      <h1>SecureNet</h1>
+      <p>Secure contact form powered by a layered AWS architecture.</p>
+    </section>
+    <section class="card">
+      <form id="contactForm">
+        <div class="grid">
+          <label>Name<input id="name" maxlength="120" required></label>
+          <label>Email<input id="email" type="email" maxlength="255" required></label>
+        </div>
+        <label>Subject<input id="subject" maxlength="255" required></label>
+        <label>Message<textarea id="message" rows="7" maxlength="5000" required></textarea></label>
+        <button id="submitBtn" type="submit">Send Message</button>
+        <p id="status" class="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
