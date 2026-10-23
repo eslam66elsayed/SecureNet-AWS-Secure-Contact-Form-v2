@@ -98,6 +98,35 @@ When a user submits the contact form:
           +--------------------------------------+
 ```
 
+## 🏗️ Architecture
+
+![AWS Architecture](images/aws-secure-network-architecture-subnets-2ec21.png)
+
+---
+
+## 📸 Project Screenshots
+
+### User interface
+![User interface](images/user-interface.png)
+
+### Submit Notification
+![Submit Notification](images/Submit-Notification.png)
+
+### RDS Table
+![RDS Table](images/RDS-Table.png)
+
+### Cloudwatch
+![Cloudwatch](images/Cloudwatch.png)
+
+### Alarm Notification
+![Alarm Notification](images/Alarm_Notification.png)
+
+### VPC Resource Map
+![VPC Resource Map](images/VPC_Resource_Map.png)
+
+### System Session Manager
+![System Session Manager](images/SSM.png)
+
 ---
 
 # 3. AWS Services Used
