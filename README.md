@@ -100,7 +100,7 @@ When a user submits the contact form:
 
 ## 🏗️ Architecture
 
-![AWS Architecture](images/aws-secure-network-architecture-subnets-2ec21.png)
+![AWS Architecture](images/aws-secure-network-architecture-subnets-2ec21.jpg)
 
 ---
 
