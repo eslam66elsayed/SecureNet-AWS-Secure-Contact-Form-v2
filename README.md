@@ -110,13 +110,13 @@ When a user submits the contact form:
 ![User interface](images/user-interface.png)
 
 ### Submit Notification
-![Submit Notification](images/Submit-Notification.png)
+![Submit Notification](images/Submit_Notification.png)
 
 ### RDS Table
 ![RDS Table](images/RDS-Table.png)
 
 ### Cloudwatch
-![Cloudwatch](images/Cloudwatch.png)
+![Cloudwatch](images/cloudwatch.png)
 
 ### Alarm Notification
 ![Alarm Notification](images/Alarm_Notification.png)
